@@ -21,18 +21,18 @@ fix:
 
 build:
 	@echo "Building..."
-	@gcc $(SRCLIST)    \
+	@gcc $(SRCLIST) \
 	     -o $(OUTFILE) \
-	     $(LIB)        \
+	     $(LIB) \
 	     $(SWITCH)
 	  
 all: clean fix build
 
 run:
 	@if [ -f $(OUTFILE) ]; then \
-		$(OUTFILE);             \
-	else                        \
-		echo "No output file -- build failed?";   \
+		$(OUTFILE); \
+	else \
+		echo "No output file -- build failed?"; \
 	fi
 
 allr: all run
