@@ -26,8 +26,15 @@ void tick(void) {
     
 }
 
+#include "face"
+
 void render(void) {
     clear(0x7f7f);
+    int w = FACE_WIDTH  * 20 + (int)(sin(cticks / 100.0     ) * 100);
+    int h = FACE_HEIGHT * 20 + (int)(cos(cticks / 100.0 + PI) * 100);
+    int x = (WIDTH  - w) / 2;
+    int y = (HEIGHT - h) / 2;
+    drawImg(x, y, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
 }
 
 void run(void) {
