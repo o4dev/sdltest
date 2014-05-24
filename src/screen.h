@@ -14,5 +14,9 @@ void fillRect(int x, int y, unsigned w, unsigned h, int c);
 
 void drawStr(int x, int y, const char* str, int c);
 
+void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix);
+void drawImg(int x, int y, unsigned dw, unsigned dh,
+             unsigned iw, unsigned ih, int *ipix);
+
 #endif /* _SCREEN_H_ */
 

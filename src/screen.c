@@ -4,6 +4,7 @@
 #include "screen.h"
 
 #include <stdlib.h>
+#include <math.h>
 
 SDL_Window   *wnd;
 SDL_Renderer *renderer;
@@ -79,7 +80,7 @@ void drawRect(int x, int y, unsigned w, unsigned h, unsigned t, int c) {
 void fillRect(int x, int y, unsigned w, unsigned h, int c) {
     for (register unsigned xx = w; xx--;)
         for (register unsigned yy = h; yy--;)
-            ((int*)pixels)[x + xx + (y + yy) * WIDTH] = c;
+            setPixel(x + xx, y + yy, c);
 }
 
 void _drawFontGlyph(int x, int y, unsigned char i, int c) {
@@ -112,3 +113,17 @@ void drawStr(int x, int y, const char* str, int c) {
     }
 }
 
+void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix) {
+    for (register unsigned xx = iw; xx--; )
+        for (register unsigned yy = ih; yy--; )
+            setPixel(x + xx, y + yy, ipix[xx + yy * iw]);
+}
+
+void drawImg(int x, int y, unsigned dw, unsigned dh,
+             unsigned iw, unsigned ih, int *ipix) {
+    double sx = (double)dw / iw;
+    double sy = (double)dh / ih;
+    for (register unsigned xx = dw; xx--; )
+        for (register unsigned yy = dh; yy--; )
+            setPixel(x + xx, y + yy, ipix[(int)floor(xx / sx) + (int)floor(yy / sy) * iw]);
+}
