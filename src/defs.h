@@ -14,5 +14,7 @@
 #define __align(a)      __attribute__ ((aligned(a)))
 #define __inline        __attribute__ ((always_inline))
 
+#define PI           3.14159265358979323846
+
 #endif /* _DEFS_H_ */
 
