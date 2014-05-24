@@ -5,34 +5,29 @@
 
 #include <stdio.h>
 #include <time.h>
+#include <math.h>
 
-unsigned cticks;
-unsigned framelabel;
-BOOL     running;
+unsigned  cticks;
+unsigned  framelabel;
+BOOL      running;
 
-void run(void);
-void render(void);
-void eventProc(SDL_Event*) __inline;
-
-void eventProc(SDL_Event* event) {
-    switch (event->type) {
+void eventProc(SDL_Event event) {
+    switch (event.type) {
     case SDL_QUIT:
         running = FALSE;
-        break;
-    case SDL_KEYDOWN:
-        switch (event->key.keysym.sym) {
-        case SDLK_ESCAPE:
-            running = FALSE;
-            break;
-        }
         break;
     }
 }
 
+void tick(void) {
+    const unsigned char *kbstate = SDL_GetKeyboardState(NULL);
+    if (kbstate[SDL_SCANCODE_ESCAPE])
+        running = FALSE;
+    
+}
+
 void render(void) {
-    clear(0);
-    fillRect(10, 10, WIDTH - 20, HEIGHT - 20, 0xffff00);
-    drawRect(10, 10, WIDTH - 20, HEIGHT - 20, 1, 0xffff);
+    clear(0x7f7f);
 }
 
 void run(void) {
@@ -45,7 +40,8 @@ void run(void) {
     while (running) {
         SDL_Event event;
         while (SDL_PollEvent(&event))
-            eventProc(&event);
+            eventProc(event);
+        tick();
         render();
         updateScreen();
         frames++;
