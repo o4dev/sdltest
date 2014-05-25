@@ -129,8 +129,8 @@ void drawImg(int x, int y, unsigned dw, unsigned dh,
              unsigned iw, unsigned ih, int *ipix) {
     double sx = (double)dw / iw;
     double sy = (double)dh / ih;
-    for (register unsigned xx = dw; xx--; )
-        for (register unsigned yy = dh; yy--; ) {
+    for (register unsigned xx = dw; xx-- != 1; )
+        for (register unsigned yy = dh; yy-- != 1; ) {
             register int c = ipix[(int)floor(xx / sx) + 
                                   (int)floor(yy / sy) * iw];
             if (c != COL_TRANS)
