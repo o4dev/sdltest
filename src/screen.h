@@ -23,6 +23,10 @@
 #define COL_GREY        COL_BRBLACK
 
 #define RGBTOINT(R,G,B) (R << 16 | G << 8 | B)
+#define CHALPHA(C)      ((C >> 24) & 0xff)
+#define CHRED(C)        ((C >> 16) & 0xff)
+#define CHGREEN(C)      ((C >>  8) & 0xff)
+#define CHBLUE(C)       ( C        & 0xff)
 
 int  initScreen(void);
 void cleanupScreen(void);
