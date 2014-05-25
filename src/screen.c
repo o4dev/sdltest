@@ -115,8 +115,11 @@ void drawStr(int x, int y, const char* str, int c) {
 
 void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix) {
     for (register unsigned xx = iw; xx--; )
-        for (register unsigned yy = ih; yy--; )
-            setPixel(x + xx, y + yy, ipix[xx + yy * iw]);
+        for (register unsigned yy = ih; yy--; ) {
+            register int c = ipix[xx + yy * iw];
+            if (c != TRANSPARENCYKEY)
+                setPixel(x + xx, y + yy, c);
+        }
 }
 
 void drawImg(int x, int y, unsigned dw, unsigned dh,
@@ -124,6 +127,10 @@ void drawImg(int x, int y, unsigned dw, unsigned dh,
     double sx = (double)dw / iw;
     double sy = (double)dh / ih;
     for (register unsigned xx = dw; xx--; )
-        for (register unsigned yy = dh; yy--; )
-            setPixel(x + xx, y + yy, ipix[(int)floor(xx / sx) + (int)floor(yy / sy) * iw]);
+        for (register unsigned yy = dh; yy--; ) {
+            register int c = ipix[(int)floor(xx / sx) + 
+                                  (int)floor(yy / sy) * iw];
+            if (c != TRANSPARENCYKEY)
+                setPixel(x + xx, y + yy, c);
+        }
 }

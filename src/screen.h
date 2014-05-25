@@ -1,6 +1,8 @@
 #ifndef _SCREEN_H_
 #define _SCREEN_H_
 
+#define TRANSPARENCYKEY 0xff00ff
+
 int  initScreen(void);
 void cleanupScreen(void);
 void updateScreen(void);
