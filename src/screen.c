@@ -24,7 +24,7 @@ int initScreen(void) {
         "sdltest",
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        WIDTH * 4, HEIGHT * 4, NONE
+        WIDTH * SCALE, HEIGHT * SCALE, NONE
     );
     if (!wnd) return 1;
     renderer = SDL_CreateRenderer(
