@@ -42,4 +42,3 @@ void drawImg(int x, int y, unsigned dw, unsigned dh,
              unsigned iw, unsigned ih, int *ipix);
 
 #endif /* _SCREEN_H_ */
-

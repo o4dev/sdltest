@@ -18,4 +18,3 @@
 #define __inline        __attribute__ ((always_inline))
 
 #endif /* _DEFS_H_ */
-

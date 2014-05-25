@@ -78,4 +78,3 @@ build-win:
 	fi
 	  
 all-win: clean fix-win build-win
-
