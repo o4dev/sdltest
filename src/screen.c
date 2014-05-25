@@ -117,7 +117,7 @@ void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix) {
     for (register unsigned xx = iw; xx--; )
         for (register unsigned yy = ih; yy--; ) {
             register int c = ipix[xx + yy * iw];
-            if (c != TRANSPARENCYKEY)
+            if (c != COL_TRANS)
                 setPixel(x + xx, y + yy, c);
         }
 }
@@ -130,7 +130,7 @@ void drawImg(int x, int y, unsigned dw, unsigned dh,
         for (register unsigned yy = dh; yy--; ) {
             register int c = ipix[(int)floor(xx / sx) + 
                                   (int)floor(yy / sy) * iw];
-            if (c != TRANSPARENCYKEY)
+            if (c != COL_TRANS)
                 setPixel(x + xx, y + yy, c);
         }
 }
