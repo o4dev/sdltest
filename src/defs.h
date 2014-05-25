@@ -7,11 +7,12 @@
 #define TRUE    1
 #define FALSE   0
 
-#define NONE    0
-
 #define WIDTH   160
 #define HEIGHT  120
 #define SCALE   4
+
+#define TITLE   "sdltest"
+#define TITLEL  7
 
 #define __hot           __attribute__ ((hot))
 #define __align(a)      __attribute__ ((aligned(a)))

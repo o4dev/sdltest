@@ -26,18 +26,17 @@ void tick(void) {
 }
 
 #include "bitmaps/boxes"
+#include "bitmaps/face"
 
 void render(void) {
-    for (int i = 0; i != WIDTH * HEIGHT; i++)
-        setPixel(i, 0, i + cticks);
-    clear(COL_WHITE);
-    drawStr(9, 9, "Hello, World!", COL_GREY);
-    drawStr(8, 8, "Hello, World!", COL_RED);
-    int w = BOXES_WIDTH  * 5 + (int)(cos(cticks / 500.0) * 10);
-    int h = BOXES_HEIGHT * 5 + (int)(sin(cticks / 500.0) * 10);
-    int x = (WIDTH  - w) / 2;
-    int y = (HEIGHT - h) / 2;
-    drawImg(x, y, w, h, BOXES_WIDTH, BOXES_HEIGHT, BOXES);
+    clear(RGBTOINT(
+          (int)(sin(cticks / 1000.0             ) * 127 + 128),
+          (int)(sin(cticks / 1000.0 + PI / 3 * 2) * 127 + 128),
+          (int)(sin(cticks / 1000.0 + PI / 3 * 4) * 127 + 128)
+    ));
+    drawStr(WIDTH  / 2 - TITLEL * 4 + (int)(cos(cticks / 1000.0) * WIDTH  / 4), 
+            HEIGHT / 2 - 6          + (int)(sin(cticks / 1000.0) * HEIGHT / 4),
+            TITLE, COL_BRWHITE);
 }
 
 void run(void) {
@@ -70,6 +69,7 @@ int main(int argc, char* argv[]) {
         printf("Error: %s\n", SDL_GetError());
         return 1;
     }
+    clear(COL_BLACK);
     run();
     cleanupScreen();
     SDL_Quit();

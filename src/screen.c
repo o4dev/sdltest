@@ -21,10 +21,10 @@ const unsigned char FONT[12 * 95] __align(8) = {
 
 int initScreen(void) {
     wnd = SDL_CreateWindow(
-        "sdltest",
+        TITLE,
         SDL_WINDOWPOS_UNDEFINED,
         SDL_WINDOWPOS_UNDEFINED,
-        WIDTH * SCALE, HEIGHT * SCALE, NONE
+        WIDTH * SCALE, HEIGHT * SCALE, 0
     );
     if (!wnd) return 1;
     renderer = SDL_CreateRenderer(
@@ -100,6 +100,8 @@ void drawStr(int x, int y, const char* str, int c) {
         case '\n': yy++;
         case '\r': xx = 0;
                    break;
+void drawImgPropScale(int x, int y, unsigned iw, unsigned ih,
+                      unsigned s, int *ipix);
         case '\t': xx += HTABSIZE - (xx % HTABSIZE);
                    break;
         case '\v': yy += VTABSIZE - (yy % VTABSIZE);
