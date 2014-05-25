@@ -9,8 +9,9 @@
 
 #define NONE    0
 
-#define WIDTH   800
-#define HEIGHT  600
+#define WIDTH   160
+#define HEIGHT  120
+#define SCALE   4
 
 #define __hot           __attribute__ ((hot))
 #define __align(a)      __attribute__ ((aligned(a)))

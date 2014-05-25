@@ -29,15 +29,9 @@ void tick(void) {
 #include "face"
 
 void render(void) {
-    clear(0x7f7f);
-    int w = FACE_WIDTH  * 20 + (int)(sin(cticks / 100.0) * 100);
-    int h = FACE_HEIGHT * 20 + (int)(cos(cticks / 100.0) * 100);
-    int x = (WIDTH  - w) / 2;
-    int y = (HEIGHT - h) / 2;
-    drawImg(x - 160, y - 120, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
-    drawImg(x + 160, y + 120, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
-    drawImg(x - 160, y + 120, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
-    drawImg(x + 160, y - 120, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
+    clear(COL_BRWHITE);
+    drawStr(9, 9, "Hello, World!", COL_GREY);
+    drawStr(8, 8, "Hello, World!", COL_RED);
 }
 
 void run(void) {
