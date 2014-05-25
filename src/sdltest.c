@@ -7,9 +7,9 @@
 #include <time.h>
 #include <math.h>
 
-unsigned  cticks;
-unsigned  framelabel;
-BOOL      running;
+unsigned cticks;
+unsigned framelabel;
+BOOL     running;
 
 void eventProc(SDL_Event event) {
     switch (event.type) {
@@ -63,10 +63,7 @@ void run(void) {
 }
 
 int main(int argc, char* argv[]) {
-    BOOL error = (SDL_Init(SDL_INIT_EVERYTHING) != 0);
-    if (!error)
-        error |= (initScreen() != 0);
-    if (error) {
+    if (SDL_Init(SDL_INIT_EVERYTHING) | initScreen()) {
         printf("Error: %s\n", SDL_GetError());
         return 1;
     }

@@ -39,6 +39,7 @@ int initScreen(void) {
     );
     if (!tex) return 1;
     pixels = malloc(WIDTH * HEIGHT * 4);
+    if (!pixels) return 1;
     return 0;
 }
 
