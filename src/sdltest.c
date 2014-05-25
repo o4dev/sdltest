@@ -1,11 +1,11 @@
 #include <SDL2/SDL.h>
 
-#include "defs.h"
-#include "screen.h"
-
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+
+#include "defs.h"
+#include "screen.h"
 
 unsigned cticks;
 unsigned framelabel;
@@ -25,7 +25,6 @@ void tick(void) {
         running = FALSE;
 }
 
-#include "bitmaps/boxes"
 #include "bitmaps/face"
 
 void render(void) {
@@ -34,9 +33,13 @@ void render(void) {
           (int)(sin(cticks / 1000.0 + PI / 3 * 2) * 127 + 128),
           (int)(sin(cticks / 1000.0 + PI / 3 * 4) * 127 + 128)
     ));
-    drawStr(WIDTH  / 2 - TITLEL * 4 + (int)(cos(cticks / 1000.0) * WIDTH  / 4), 
-            HEIGHT / 2 - 6          + (int)(sin(cticks / 1000.0) * HEIGHT / 4),
-            TITLE, COL_BRWHITE);
+    int w = 4 * FACE_WIDTH  + (int)(cos(cticks / 100.0) * FACE_WIDTH  * 2);
+    int h = 4 * FACE_HEIGHT + (int)(sin(cticks / 100.0) * FACE_HEIGHT * 2);
+    int x = WIDTH  - w >> 1;
+    int y = HEIGHT / 16 * 7 - h / 2;
+    drawImg(x, y, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
+    drawStr(WIDTH  / 2 - TITLEL * 4 - (int)(sin(cticks / 1000.0) * WIDTH / 4),
+            HEIGHT / 4 * 3 - 4, TITLE, COL_BRWHITE);
 }
 
 void run(void) {

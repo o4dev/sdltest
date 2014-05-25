@@ -1,10 +1,10 @@
 #include <SDL2/SDL.h>
 
-#include "defs.h"
-#include "screen.h"
-
 #include <stdlib.h>
 #include <math.h>
+
+#include "defs.h"
+#include "screen.h"
 
 SDL_Window   *wnd;
 SDL_Renderer *renderer;
