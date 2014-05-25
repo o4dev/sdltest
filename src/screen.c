@@ -10,7 +10,7 @@ SDL_Window   *wnd;
 SDL_Renderer *renderer;
 SDL_Texture  *tex;
 
-void         *pixels;
+int          *pixels;
 
 const unsigned char FONT[12 * 95] __align(8) = {
 #include "font"
@@ -58,15 +58,15 @@ void updateScreen(void) {
 
 void clear(int c) {
     for (register unsigned i = WIDTH * HEIGHT; i--;)
-        ((int*)pixels)[i] = c;
+        pixels[i] = c;
 }
 
 void setPixel(int x, int y, int c) {
-    *((int*)pixels + x + y * WIDTH) = c;
+    *(pixels + x + y * WIDTH) = c;
 }
 
 int getPixel(int x, int y) {
-    return *((int*)pixels + x + y * WIDTH);
+    return *(pixels + x + y * WIDTH);
 }
 
 void drawRect(int x, int y, unsigned w, unsigned h, unsigned t, int c) {
@@ -106,7 +106,7 @@ void drawStr(int x, int y, const char* str, int c) {
                    break;
         case '\b': xx--;
                    break;
-        default:   _drawFontGlyph(x + xx++ * 8,
+        default:   _drawFontGlyph(x + (xx++ << 3),
                                   y + yy * 12,
                                   str[i] - 32, c);
                    break;
