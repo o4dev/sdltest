@@ -9,6 +9,7 @@
 #define COL_MAGENTA     0x7f007f
 #define COL_CYAN        0x007f7f
 #define COL_WHITE       0xcfcfcf
+
 #define COL_BRBLACK     0x7f7f7f
 #define COL_BRRED       0xff0000
 #define COL_BRGREEN     0x00ff00
@@ -17,8 +18,11 @@
 #define COL_BRMAGENTA   0xff00ff
 #define COL_BRCYAN      0x00ffff
 #define COL_BRWHITE     0xffffff
+
 #define COL_TRANS       COL_BRMAGENTA
 #define COL_GREY        COL_BRBLACK
+
+#define RGBTOINT(R,G,B) (R << 16 | G << 8 | B)
 
 int  initScreen(void);
 void cleanupScreen(void);
