@@ -85,9 +85,9 @@ void fillRect(int x, int y, unsigned w, unsigned h, int c) {
 }
 
 void _drawFontGlyph(int x, int y, unsigned char i, int c) {
-    for (int yy = 0; yy != 12; yy++) {
+    for (register unsigned yy = 12; yy--; ) {
         unsigned int glyphrow = FONT[i * 12 + yy];
-        for (int xx = 0; xx != 8; xx++)
+        for (register unsigned xx = 8; xx--; )
             if ((glyphrow >> xx) & 1)
                 setPixel(x + xx, y + yy, c);
     }
