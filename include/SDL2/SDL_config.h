@@ -57,6 +57,7 @@
 #if HAVE_LIBC
 
 /* Useful headers */
+#define HAVE_ALLOCA_H 1
 #define HAVE_SYS_TYPES_H 1
 #define HAVE_STDIO_H 1
 #define STDC_HEADERS 1
@@ -70,6 +71,7 @@
 #define HAVE_STDINT_H 1
 #define HAVE_CTYPE_H 1
 #define HAVE_MATH_H 1
+#define HAVE_ICONV_H 1
 #define HAVE_SIGNAL_H 1
 /* #undef HAVE_ALTIVEC_H */
 /* #undef HAVE_PTHREAD_NP_H */
@@ -81,6 +83,7 @@
 #define HAVE_CALLOC 1
 #define HAVE_REALLOC 1
 #define HAVE_FREE 1
+#define HAVE_ALLOCA 1
 #ifndef __WIN32__ /* Don't use C runtime versions of these on Windows */
 #define HAVE_GETENV 1
 #define HAVE_SETENV 1
@@ -167,6 +170,12 @@
 #define HAVE_STDDEF_H 1
 #define HAVE_STDINT_H 1
 #endif /* HAVE_LIBC */
+
+#if defined(__MINGW32__) /* For the sake of MinGW */
+ #undef HAVE_ALLOCA_H
+ #undef HAVE_ICONV_H
+ #undef HAVE_ALLOCA
+#endif /* defined(__MINGW32__) */
 
 /* SDL internal assertion support */
 /* #undef SDL_DEFAULT_ASSERT_LEVEL */
