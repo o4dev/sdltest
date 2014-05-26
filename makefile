@@ -31,7 +31,9 @@ SRCLIST := $(addprefix $(SRCDIR)/,$(SRCLIST))
 
 clean:
 	@echo "Cleaning..."
-	@rm -fr $(OUTDIR)
+	@if [ -d $(OUTDIR) ]; then \
+		rm -fr $(OUTDIR); \
+	fi
 
 fix:
 	@echo "Fixing..."
@@ -73,7 +75,7 @@ build-win:
 						  -I $(INCDIR) \
 						  -L $(LIBDIR) $(LIBWIN) \
 						  $(FLAGS) 
-	@if [ -f $(OUTFILE) ]; then \
+	@if [ -f $(OUTFILE).exe ]; then \
 		echo "Windows build succeeded, now get that filth out of here."; \
 	fi
 	  
