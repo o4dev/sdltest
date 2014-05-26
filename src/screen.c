@@ -26,20 +26,16 @@ int initScreen(void) {
         SDL_WINDOWPOS_UNDEFINED,
         WIDTH * SCALE, HEIGHT * SCALE, 0
     );
-    if (!wnd) return 1;
     renderer = SDL_CreateRenderer(
-        wnd, -1, SDL_RENDERER_SOFTWARE
+        wnd, -1, SDL_RENDERER_ACCELERATED
     );
-    if (!renderer) return 1;
     tex = SDL_CreateTexture(
         renderer,
         SDL_PIXELFORMAT_ARGB8888,
         SDL_TEXTUREACCESS_STREAMING,
         WIDTH, HEIGHT
     );
-    if (!tex) return 1;
     pixels = malloc(WIDTH * HEIGHT * 4);
-    if (!pixels) return 1;
     return 0;
 }
 
@@ -114,7 +110,8 @@ void drawStr(int x, int y, const char* str, int c) {
     }
 }
 
-void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix) {
+void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih,
+                     const int *ipix) {
     for (register unsigned xx = iw; xx--; )
         for (register unsigned yy = ih; yy--; ) {
             register int c = ipix[xx + yy * iw];
@@ -124,7 +121,7 @@ void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, int *ipix) {
 }
 
 void drawImg(int x, int y, unsigned dw, unsigned dh,
-             unsigned iw, unsigned ih, int *ipix) {
+             unsigned iw, unsigned ih, const int *ipix) {
     double sx = (double)dw / iw;
     double sy = (double)dh / ih;
     for (register unsigned xx = dw; xx-- != 1; )
