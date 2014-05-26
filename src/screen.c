@@ -36,8 +36,8 @@ int initScreen(void) {
             wnd, -1, SDL_RENDERER_SOFTWARE
         );
         SDL_ClearError();
-        printf("Couldn't create an accelerated renderer,"
-               "falling back to software."));
+        printf("Couldn't create an accelerated renderer, "
+               "falling back to software.\n");
     }
     tex = SDL_CreateTexture(
         renderer,
