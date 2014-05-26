@@ -26,9 +26,19 @@ int initScreen(void) {
         SDL_WINDOWPOS_UNDEFINED,
         WIDTH * SCALE, HEIGHT * SCALE, 0
     );
+    SDL_ClearError();
     renderer = SDL_CreateRenderer(
         wnd, -1, SDL_RENDERER_ACCELERATED
     );
+    if (strlen(SDL_GetError())) {
+        SDL_DestroyRenderer(renderer);
+        renderer = SDL_CreateRenderer(
+            wnd, -1, SDL_RENDERER_SOFTWARE
+        );
+        SDL_ClearError();
+        printf("Couldn't create an accelerated renderer,"
+               "falling back to software."));
+    }
     tex = SDL_CreateTexture(
         renderer,
         SDL_PIXELFORMAT_ARGB8888,
