@@ -35,7 +35,7 @@ void render(void) {
     ));
     int w = 4 * FACE_WIDTH  + (int)(cos(cticks / 100.0) * FACE_WIDTH  * 2);
     int h = 4 * FACE_HEIGHT + (int)(sin(cticks / 100.0) * FACE_HEIGHT * 2);
-    int x = WIDTH  - w >> 1;
+    int x = (WIDTH  - w) >> 1;
     int y = HEIGHT / 16 * 7 - h / 2;
     drawImg(x, y, w, h, FACE_WIDTH, FACE_HEIGHT, FACE);
     drawStr(WIDTH  / 2 - TITLEL * 4 - (int)(sin(cticks / 1000.0) * WIDTH / 4),
