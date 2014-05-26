@@ -24,6 +24,9 @@ FLAGS	:= -std=c99
 # SDL2.dll's location (for fix-win):
 SDLDLL	:= lib/SDL2.dll
 
+CC		:= gcc
+CCWIN	:= i586-mingw32msvc-gcc
+
 # Concatenate output file and dir:
 OUTFILE := $(OUTDIR)/$(OUTFILE)
 # Prefix all source file names with the source dir name:
@@ -41,11 +44,11 @@ fix:
 
 build:
 	@echo "Building..."
-	@gcc $(SRCLIST) \
-		 -o $(OUTFILE) \
-		 -I $(INCDIR) \
-		 -L $(LIBDIR) $(LIB) \
-		 $(FLAGS)
+	@$(CC) $(SRCLIST) \
+		   -o $(OUTFILE) \
+		   -I $(INCDIR) \
+		   -L $(LIBDIR) $(LIB) \
+		   $(FLAGS)
 	@if [ -f $(OUTFILE) ]; then \
 		echo "Build succeeded."; \
 	fi
@@ -70,11 +73,11 @@ fix-win:
 
 build-win:
 	@echo "Building for Windows..."
-	@i586-mingw32msvc-gcc $(SRCLIST) \
-						  -o $(OUTFILE).exe \
-						  -I $(INCDIR) \
-						  -L $(LIBDIR) $(LIBWIN) \
-						  $(FLAGS) 
+	@$(CCWIN) $(SRCLIST) \
+			  -o $(OUTFILE).exe \
+			  -I $(INCDIR) \
+			  -L $(LIBDIR) $(LIBWIN) \
+			  $(FLAGS) 
 	@if [ -f $(OUTFILE).exe ]; then \
 		echo "Windows build succeeded, now get that filth out of here."; \
 	fi
