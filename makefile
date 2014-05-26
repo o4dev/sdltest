@@ -24,7 +24,9 @@ FLAGS	:= -std=c99
 # SDL2.dll's location (for fix-win):
 SDLDLL	:= lib/SDL2.dll
 
+# Compiler for linux
 CC		:= gcc
+# MinGW gcc command
 CCWIN	:= i586-mingw32msvc-gcc
 
 # Concatenate output file and dir:
