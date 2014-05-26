@@ -30,7 +30,7 @@ int initScreen(void) {
     renderer = SDL_CreateRenderer(
         wnd, -1, SDL_RENDERER_ACCELERATED
     );
-    if (strlen(SDL_GetError())) {
+    if (strlen(SDL_GetError())) { // fuck
         SDL_DestroyRenderer(renderer);
         renderer = SDL_CreateRenderer(
             wnd, -1, SDL_RENDERER_SOFTWARE
