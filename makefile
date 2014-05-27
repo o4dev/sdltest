@@ -9,25 +9,25 @@ OUTFILE := sdltest
 OUTDIR  := bin
 
 # Include dir:
-INCDIR	:= include
+INCDIR  := include
 
 # Lib dir:
-LIBDIR	:= lib
+LIBDIR  := lib
 # Common libraries:
 LIB     := -lSDL2 -lm
 # Windows-only libraries:
-LIBWIN	:= -lmingw32 -lSDL2main $(LIB)
+LIBWIN  := -lmingw32 -lSDL2main $(LIB)
 
 # Other compiler flags:
-FLAGS	:= -std=c99
+FLAGS   := -std=c99
 
 # SDL2.dll's location (for fix-win):
-SDLDLL	:= lib/SDL2.dll
+SDLDLL  := lib/SDL2.dll
 
 # Compiler for linux
-CC	:= gcc
+CC      := gcc
 # MinGW gcc command
-CCWIN	:= mingw32-gcc
+CCWIN   := mingw32-gcc
 
 # Concatenate output file and dir:
 OUTFILE := $(OUTDIR)/$(OUTFILE)
