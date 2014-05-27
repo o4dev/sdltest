@@ -25,9 +25,9 @@ FLAGS	:= -std=c99
 SDLDLL	:= lib/SDL2.dll
 
 # Compiler for linux
-CC		:= gcc
+CC	:= gcc
 # MinGW gcc command
-CCWIN	:= i586-mingw32msvc-gcc
+CCWIN	:= mingw32-gcc
 
 # Concatenate output file and dir:
 OUTFILE := $(OUTDIR)/$(OUTFILE)
