@@ -85,3 +85,12 @@ build-win:
 	fi
 	  
 all-win: clean fix-win build-win
+	
+run-win:
+	@if [ -f $(OUTFILE).exe ]; then \
+		$(OUTFILE).exe; \
+	else \
+		echo "Unable to run $(OUTFILE).exe."; \
+	fi
+	
+allr-win: all-win run-win
