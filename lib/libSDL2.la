@@ -5,10 +5,10 @@
 # It is necessary for linking the library.
 
 # The name that we can dlopen(3).
-dlname='../bin/SDL2.dll'
+dlname='libSDL2-2.0.so.0'
 
 # Names of this library.
-library_names='libSDL2.dll.a'
+library_names='libSDL2-2.0.so.0.2.1 libSDL2-2.0.so.0 libSDL2.so'
 
 # The name of the static archive.
 old_library='libSDL2.a'
@@ -17,7 +17,7 @@ old_library='libSDL2.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lversion -luuid'
+dependency_libs=' -lm -ldl -lts -lpthread -lrt'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/Users/slouken/release/SDL/SDL2-2.0.3/i686-w64-mingw32/lib'
+libdir='/usr/local/lib'
