@@ -11,12 +11,15 @@ OUTDIR  := bin
 # Include dir:
 INCDIR  := include
 
-# Lib dir:
-LIBDIR  := lib
 # Common libraries:
 LIB     := -lSDL2 -lm
+# Lib dir:
+LIBDIR  := lib
 # Windows-only libraries:
 LIBWIN  := -lmingw32 -lSDL2main $(LIB)
+# Note that the lib directory is necessary for
+# compiling on/for Windows only, since the
+# Linux lib directory should be /usr/local/lib
 
 # Other compiler flags:
 FLAGS   := -std=c99
@@ -49,7 +52,7 @@ build:
 	@$(CC) $(SRCLIST) \
 		   -o $(OUTFILE) \
 		   -I $(INCDIR) \
-		   -L $(LIBDIR) $(LIB) \
+		   $(LIB) \
 		   $(FLAGS)
 	@if [ -f $(OUTFILE) ]; then \
 		echo "Build succeeded."; \
