@@ -19,7 +19,28 @@ const unsigned char FONT[12 * 95] __align(8) = {
 #define HTABSIZE    4
 #define VTABSIZE    4
 
+void _detectDrivers(void) {
+    int devcount = SDL_GetNumRenderDrivers();
+    printf("Found %d Render Devices\n", devcount);
+    for (int i = 0; i < devcount; i++) {
+        SDL_RendererInfo devinfo;
+        SDL_GetRenderDriverInfo(i, &devinfo);
+        BOOL devsoftware    = devinfo.flags & SDL_RENDERER_SOFTWARE;
+        BOOL devaccelerated = devinfo.flags & SDL_RENDERER_ACCELERATED;
+        BOOL devvsync       = devinfo.flags & SDL_RENDERER_PRESENTVSYNC;
+        BOOL devtargettex   = devinfo.flags & SDL_RENDERER_TARGETTEXTURE;
+        #define b(q) (q ? "true" : "false")
+        printf("--- Device %d Details ---\n", i);
+        printf(" Name:                 %s\n", devinfo.name);
+        printf(" Software Device:      %s\n", b(devsoftware));
+        printf(" Hardware Accelerated: %s\n", b(devaccelerated));
+        printf(" Vertical Sync:        %s\n", b(devvsync));
+        printf(" Can Target Texture:   %s\n", b(devsoftware));
+    }
+}
+
 int initScreen(void) {
+    _detectDrivers();
     wnd = SDL_CreateWindow(
         TITLE,
         SDL_WINDOWPOS_UNDEFINED,
