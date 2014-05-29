@@ -9,7 +9,7 @@ OUTFILE := sdltest
 OUTDIR  := bin
 
 # Include dir:
-INCDIR  := include
+INCDIR  := include/*
 
 # Common libraries:
 LIB     := -lSDL2 -lm
