@@ -36,14 +36,13 @@ void clear(int c);
 void setPixel(int x, int y, int c) __inline;
 int  getPixel(int x, int y);
 
-void drawRect(int x, int y, unsigned w, unsigned h, unsigned t, int c);
-void fillRect(int x, int y, unsigned w, unsigned h, int c);
+void drawRect(int x, int y, uint w, uint h, uint t, int c);
+void fillRect(int x, int y, uint w, uint h, int c);
 
 void drawStr(int x, int y, const char* str, int c);
 
-void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih, 
-                     const int *ipix);
-void drawImg(int x, int y, unsigned dw, unsigned dh,
-             unsigned iw, unsigned ih, const int *ipix);
+void drawImgUnscaled(int x, int y, uint iw, uint ih, const int *ipix);
+void drawImg(int x, int y, uint dw, uint dh, uint iw, uint ih,
+             const int *ipix);
 
 #endif /* _SCREEN_H_ */

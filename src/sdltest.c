@@ -7,22 +7,22 @@
 #include "defs.h"
 #include "screen.h"
 
-unsigned cticks;
-unsigned framelabel;
-BOOL     running;
+uint    cticks;
+uint    framelabel;
+bool    running;
 
 void eventProc(SDL_Event event) {
     switch (event.type) {
     case SDL_QUIT:
-        running = FALSE;
+        running = false;
         break;
     }
 }
 
 void tick(void) {
-    const unsigned char *kbstate = SDL_GetKeyboardState(NULL);
+    const uchar *kbstate = SDL_GetKeyboardState(NULL);
     if (kbstate[SDL_SCANCODE_ESCAPE])
-        running = FALSE;
+        running = false;
 }
 
 #include "bitmaps/face"
@@ -45,10 +45,10 @@ void render(void) {
 void run(void) {
     cticks  = 0;
     framelabel = 0;
-    running = TRUE;
-    unsigned nowtime = 0;
-    unsigned oldtime = (int)time(NULL);
-    unsigned frames = 0;
+    running = true;
+    uint nowtime = 0;
+    uint oldtime = (uint)time(NULL);
+    uint frames = 0;
     while (running) {
         SDL_Event event;
         while (SDL_PollEvent(&event))
@@ -58,7 +58,7 @@ void run(void) {
         updateScreen();
         frames++;
         cticks++;
-        if ((nowtime = (int)time(NULL)) != oldtime) {
+        if ((nowtime = (uint)time(NULL)) != oldtime) {
             framelabel = frames;
             printf("%dfps\n", framelabel);
             frames = 0;

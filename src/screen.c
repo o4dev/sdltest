@@ -12,36 +12,40 @@ SDL_Texture  *tex;
 
 int          *pixels;
 
-const unsigned char FONT[12 * 95] __align(8) = {
+const uchar FONT[12 * 95] = {
 #include "font"
 };
 
 #define HTABSIZE    4
 #define VTABSIZE    4
 
-void _detectDrivers(void) {
+void _detectDevices(void) {
     int devcount = SDL_GetNumRenderDrivers();
     printf("Found %d Render Devices\n", devcount);
     for (int i = 0; i < devcount; i++) {
         SDL_RendererInfo devinfo;
         SDL_GetRenderDriverInfo(i, &devinfo);
-        BOOL devsoftware    = devinfo.flags & SDL_RENDERER_SOFTWARE;
-        BOOL devaccelerated = devinfo.flags & SDL_RENDERER_ACCELERATED;
-        BOOL devvsync       = devinfo.flags & SDL_RENDERER_PRESENTVSYNC;
-        BOOL devtargettex   = devinfo.flags & SDL_RENDERER_TARGETTEXTURE;
+        bool devsoftware    = devinfo.flags & SDL_RENDERER_SOFTWARE;
+        bool devaccelerated = devinfo.flags & SDL_RENDERER_ACCELERATED;
+        bool devvsync       = devinfo.flags & SDL_RENDERER_PRESENTVSYNC;
+        bool devtargettex   = devinfo.flags & SDL_RENDERER_TARGETTEXTURE;
+        bool devargb32      = false;
+        for (int j = devinfo.num_texture_formats; j--; )
+            devargb32 |= (devinfo.texture_formats[j]
+                          & SDL_PIXELFORMAT_ARGB8888);
         #define b(q) (q ? "true" : "false")
         printf("--- Device %d Details ---\n", i);
         printf(" Name:                 %s\n", devinfo.name);
         printf(" Software Device:      %s\n", b(devsoftware));
         printf(" Hardware Accelerated: %s\n", b(devaccelerated));
         printf(" Vertical Sync:        %s\n", b(devvsync));
-        printf(" Can Target Texture:   %s\n", b(devsoftware));
+        printf(" Supports ARGB 32-bit: %s\n", b(devargb32));
         #undef b
     }
 }
 
 int initScreen(void) {
-    _detectDrivers();
+    _detectDevices();
     wnd = SDL_CreateWindow(
         TITLE,
         SDL_WINDOWPOS_UNDEFINED,
@@ -86,7 +90,7 @@ void updateScreen(void) {
 }
 
 void clear(int c) {
-    for (register unsigned i = WIDTH * HEIGHT; i--;)
+    for (register uint i = WIDTH * HEIGHT; i--;)
         pixels[i] = c;
 }
 
@@ -98,25 +102,25 @@ int getPixel(int x, int y) {
     return *(pixels + x + y * WIDTH);
 }
 
-void drawRect(int x, int y, unsigned w, unsigned h, unsigned t, int c) {
-    for (register unsigned xx = w; xx--;)
-        for (register unsigned yy = h; yy--;) {
+void drawRect(int x, int y, uint w, uint h, uint t, int c) {
+    for (register uint xx = w; xx--;)
+        for (register uint yy = h; yy--;) {
             if (xx - t < w - t * 2 && yy - t < h - t * 2)
                 continue;
             setPixel(x + xx, y + yy, c);
         }
 }
 
-void fillRect(int x, int y, unsigned w, unsigned h, int c) {
-    for (register unsigned xx = w; xx--;)
-        for (register unsigned yy = h; yy--;)
+void fillRect(int x, int y, uint w, uint h, int c) {
+    for (register uint xx = w; xx--;)
+        for (register uint yy = h; yy--;)
             setPixel(x + xx, y + yy, c);
 }
 
-void _drawFontGlyph(int x, int y, unsigned char i, int c) {
-    for (register unsigned yy = 12; yy--; ) {
-        unsigned int glyphrow = FONT[i * 12 + yy];
-        for (register unsigned xx = 8; xx--; )
+void _drawFontGlyph(int x, int y, uchar i, int c) {
+    for (register uint yy = 12; yy--; ) {
+        uint glyphrow = FONT[i * 12 + yy];
+        for (register uint xx = 8; xx--; )
             if ((glyphrow >> xx) & 1)
                 setPixel(x + xx, y + yy, c);
     }
@@ -143,22 +147,21 @@ void drawStr(int x, int y, const char* str, int c) {
     }
 }
 
-void drawImgUnscaled(int x, int y, unsigned iw, unsigned ih,
-                     const int *ipix) {
-    for (register unsigned xx = iw; xx--; )
-        for (register unsigned yy = ih; yy--; ) {
+void drawImgUnscaled(int x, int y, uint iw, uint ih, const int *ipix) {
+    for (register uint xx = iw; xx--; )
+        for (register uint yy = ih; yy--; ) {
             register int c = ipix[xx + yy * iw];
             if (c != COL_TRANS)
                 setPixel(x + xx, y + yy, c);
         }
 }
 
-void drawImg(int x, int y, unsigned dw, unsigned dh,
-             unsigned iw, unsigned ih, const int *ipix) {
+void drawImg(int x, int y, uint dw, uint dh, uint iw, uint ih,
+             const int *ipix) {
     double sx = (double)dw / iw;
     double sy = (double)dh / ih;
-    for (register unsigned xx = dw; xx-- != 1; )
-        for (register unsigned yy = dh; yy-- != 1; ) {
+    for (register uint xx = dw; xx-- != 1; )
+        for (register uint yy = dh; yy-- != 1; ) {
             register int c = ipix[(int)floor(xx / sx) + 
                                   (int)floor(yy / sy) * iw];
             if (c != COL_TRANS)
