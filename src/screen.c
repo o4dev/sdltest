@@ -19,7 +19,13 @@ const uchar FONT[12 * 95] = {
 #define HTABSIZE    4
 #define VTABSIZE    4
 
-void _detectDevices(void) {
+typedef struct {
+    int primary = 0, fallback = 0;
+    bool primaryIsFallback = false;
+} DeviceAssignment;
+
+DeviceAssignment _detectDevices(void) {
+    DeviceAssignment assignment;
     int devcount = SDL_GetNumRenderDrivers();
     printf("Found %d Render Devices\n", devcount);
     for (int i = 0; i < devcount; i++) {
@@ -42,6 +48,7 @@ void _detectDevices(void) {
         printf(" Supports ARGB 32-bit: %s\n", b(devargb32));
         #undef b
     }
+    return assignment;
 }
 
 int initScreen(void) {
