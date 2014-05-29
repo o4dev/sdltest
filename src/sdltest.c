@@ -60,7 +60,7 @@ void run(void) {
         cticks++;
         if ((nowtime = (int)time(NULL)) != oldtime) {
             framelabel = frames;
-            printf("%d\n", framelabel);
+            printf("%dfps\n", framelabel);
             frames = 0;
             oldtime = nowtime;
         }
@@ -68,10 +68,12 @@ void run(void) {
 }
 
 int main(int argc, char* argv[]) {
+    printf("Loading, please wait...\n");
     if (SDL_Init(SDL_INIT_EVERYTHING) | initScreen()) {
-        printf("Error: %s\n", SDL_GetError());
+        printf("Critical Error: %s\n", SDL_GetError());
         return 1;
     }
+    printf("Continuing...\n");
     clear(COL_BLACK);
     run();
     cleanupScreen();
