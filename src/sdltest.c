@@ -47,7 +47,7 @@ void run(void) {
     framelabel = 0;
     running = TRUE;
     unsigned nowtime = 0;
-    unsigned oldtime = 0;
+    unsigned oldtime = (int)time(NULL);
     unsigned frames = 0;
     while (running) {
         SDL_Event event;
