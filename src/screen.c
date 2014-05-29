@@ -36,6 +36,7 @@ void _detectDrivers(void) {
         printf(" Hardware Accelerated: %s\n", b(devaccelerated));
         printf(" Vertical Sync:        %s\n", b(devvsync));
         printf(" Can Target Texture:   %s\n", b(devsoftware));
+        #undef b
     }
 }
 
