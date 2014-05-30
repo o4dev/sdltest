@@ -12,20 +12,14 @@ SDL_Texture  *tex;
 
 int          *pixels;
 
+#define HTABSIZE    4
+#define VTABSIZE    4
+
 const uchar FONT[12 * 95] = {
 #include "font"
 };
 
-#define HTABSIZE    4
-#define VTABSIZE    4
-
-typedef struct {
-    int primary = 0, fallback = 0;
-    bool primaryIsFallback = false;
-} DeviceAssignment;
-
-DeviceAssignment _detectDevices(void) {
-    DeviceAssignment assignment;
+void _getAndDetectDeviceSet(void) {
     int devcount = SDL_GetNumRenderDrivers();
     printf("Found %d Render Devices\n", devcount);
     for (int i = 0; i < devcount; i++) {
@@ -48,11 +42,10 @@ DeviceAssignment _detectDevices(void) {
         printf(" Supports ARGB 32-bit: %s\n", b(devargb32));
         #undef b
     }
-    return assignment;
 }
 
 int initScreen(void) {
-    _detectDevices();
+    _getAndDetectDeviceSet();
     wnd = SDL_CreateWindow(
         TITLE,
         SDL_WINDOWPOS_UNDEFINED,
@@ -60,19 +53,11 @@ int initScreen(void) {
         WIDTH * SCALE, HEIGHT * SCALE, 
         0
     );
-    SDL_ClearError();
+    int devid = 1;
+    printf("Attempting to use device %d\n", devid);
     renderer = SDL_CreateRenderer(
-        wnd, -1, SDL_RENDERER_ACCELERATED
+        wnd, devid, 0
     );
-    if (strlen(SDL_GetError())) { // fuck
-        SDL_DestroyRenderer(renderer);
-        renderer = SDL_CreateRenderer(
-            wnd, -1, SDL_RENDERER_SOFTWARE
-        );
-        SDL_ClearError();
-        printf("Couldn't create an accelerated renderer, "
-               "falling back to software rendering.\n");
-    }
     tex = SDL_CreateTexture(
         renderer,
         SDL_PIXELFORMAT_ARGB8888,
@@ -84,10 +69,10 @@ int initScreen(void) {
 }
 
 void cleanupScreen(void) {
-    free(pixels);
-    SDL_DestroyTexture(tex);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(wnd);
+    if (pixels)   free(pixels);
+    if (tex)      SDL_DestroyTexture(tex);
+    if (renderer) SDL_DestroyRenderer(renderer);
+    if (wnd)      SDL_DestroyWindow(wnd);
 }
 
 void updateScreen(void) {

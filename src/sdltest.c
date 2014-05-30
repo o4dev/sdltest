@@ -67,16 +67,38 @@ void run(void) {
     }
 }
 
-int main(int argc, char* argv[]) {
+int start() {
     printf("Loading, please wait...\n");
-    if (SDL_Init(SDL_INIT_EVERYTHING) | initScreen()) {
-        printf("Critical Error: %s\n", SDL_GetError());
+    if (sizeof(int) != 4) {
+        printf("Fatal error: 'int' MUST be 4 bytes wide only");
+        return 1;
+    }
+    bool sdlsuccess = (SDL_Init(SDL_INIT_EVERYTHING) == 0);
+    bool screensuccess = (sdlsuccess ? initScreen() == 0 : false);
+    if (!sdlsuccess || !screensuccess) {
+        printf("A critical error occured:\n%s\n", SDL_GetError());
         return 1;
     }
     printf("Continuing...\n");
-    clear(COL_BLACK);
-    run();
+    clear(COL_BLACK);    
+    return 0;
+}
+
+void stop() {
+    printf("Closing...\n");
     cleanupScreen();
     SDL_Quit();
+}
+
+#undef int
+#undef char
+
+int main(int argc, char* argv[]) {
+    if (start() != 0) {
+        stop();
+        return 1;
+    }
+    run();
+    stop();
     return 0;
 }
